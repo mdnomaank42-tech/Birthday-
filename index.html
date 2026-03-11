@@ -2,40 +2,66 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>For Qudrath ❤️</title>
+<title>For My Love Qudrath ❤️</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Segoe UI;
-background:linear-gradient(135deg,#ff9ecb,#ffc6e5,#ffdff2);
+background:radial-gradient(circle,#ffb6d9,#ff7ab8,#111);
 height:100vh;
 overflow:hidden;
-text-align:center;
 color:white;
+text-align:center;
 }
 
-/* center container */
+/* star background */
 
-.container{
+.star{
+position:fixed;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:0.2}
+to{opacity:1}
+}
+
+/* scenes */
+
+.scene{
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
+display:none;
 width:90%;
 max-width:600px;
+}
+
+.active{
+display:block;
+animation:fade 1.2s;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translate(-50%,-40%)}
+to{opacity:1;transform:translate(-50%,-50%)}
 }
 
 /* heart */
 
 .heart{
-font-size:100px;
+font-size:110px;
 cursor:pointer;
 transition:1s;
 }
 
-.big{
+.grow{
 transform:scale(1.6);
 }
 
@@ -45,27 +71,21 @@ transform:scale(1.6);
 display:flex;
 justify-content:space-between;
 align-items:center;
-margin-top:40px;
 }
 
-.split .h{
+.split span{
 font-size:80px;
 }
 
-/* typing */
-
 #typing{
-font-size:24px;
 width:60%;
-margin:auto;
-min-height:60px;
+font-size:24px;
 }
 
-/* join hearts */
+/* join */
 
 .join{
-font-size:70px;
-margin-top:30px;
+font-size:80px;
 animation:join 2s forwards;
 }
 
@@ -77,24 +97,20 @@ animation:join 2s forwards;
 /* names */
 
 .names{
-font-size:36px;
-margin-top:25px;
+font-size:42px;
 }
 
 /* glowing name */
 
 .glow{
-font-size:50px;
-margin-top:20px;
-color:white;
-text-shadow:0 0 15px #ff2e88,0 0 30px #ff2e88;
+font-size:60px;
+text-shadow:0 0 20px #ff2e88,0 0 40px #ff2e88,0 0 70px #ff2e88;
 }
 
 /* final */
 
 .final{
 font-size:55px;
-margin-top:30px;
 animation:beat 1s infinite;
 }
 
@@ -104,29 +120,42 @@ animation:beat 1s infinite;
 100%{transform:scale(1)}
 }
 
+/* floating hearts */
+
+.float{
+position:fixed;
+bottom:-20px;
+font-size:22px;
+animation:rise 6s linear;
+}
+
+@keyframes rise{
+to{transform:translateY(-120vh);opacity:0}
+}
+
+/* fireworks */
+
+.fire{
+position:fixed;
+width:5px;
+height:5px;
+background:#ff2e88;
+border-radius:50%;
+animation:explode 1s forwards;
+}
+
+@keyframes explode{
+to{transform:scale(25);opacity:0}
+}
+
 /* letter */
 
-#letter{
-display:none;
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
+.letter{
 background:white;
 color:#444;
 padding:25px;
 border-radius:15px;
-width:300px;
 box-shadow:0 0 25px pink;
-}
-
-button{
-margin-top:10px;
-padding:8px 15px;
-border:none;
-background:#ff2e88;
-color:white;
-border-radius:6px;
 }
 
 </style>
@@ -134,108 +163,206 @@ border-radius:6px;
 
 <body>
 
-<div class="container">
+<!-- Scene 1 -->
+
+<div id="s1" class="scene active">
 
 <h1>Happy Birthday Qudrath 🎂</h1>
 
-<div id="heart" class="heart" onclick="start()">❤️</div>
+<div id="heart" class="heart">❤️</div>
 
-<div id="splitArea" class="split" style="display:none">
-<div class="h">❤️</div>
+<p>Click the heart</p>
+
+</div>
+
+<!-- Scene 2 -->
+
+<div id="s2" class="scene">
+
+<div class="split">
+
+<span>❤️</span>
+
 <div id="typing"></div>
-<div class="h">❤️</div>
-</div>
 
-<div id="join" class="join" style="display:none">❤️ ❤️</div>
+<span>❤️</span>
 
-<div id="names" class="names" style="display:none">
-Nomaan ❤️ Qudrath
-</div>
-
-<div id="glow" class="glow" style="display:none">
-QUDRATH
-</div>
-
-<div id="final" class="final" style="display:none">
-I LOVE YOU MY LOVE QUDRATH ❤️
 </div>
 
 </div>
 
-<div id="letter">
+<!-- Scene 3 -->
+
+<div id="s3" class="scene">
+<div class="join">❤️ ❤️</div>
+</div>
+
+<!-- Scene 4 -->
+
+<div id="s4" class="scene">
+<div class="names">Nomaan ❤️ Qudrath</div>
+</div>
+
+<!-- Scene 5 -->
+
+<div id="s5" class="scene">
+<div class="glow">QUDRATH</div>
+</div>
+
+<!-- Scene 6 -->
+
+<div id="s6" class="scene">
+<div class="final">I LOVE YOU MY LOVE QUDRATH ❤️</div>
+</div>
+
+<!-- Scene 7 -->
+
+<div id="s7" class="scene">
+
+<div class="letter">
 
 <h3>💌 A Letter For You</h3>
 
 <p>
-Dear Qudrath,<br><br>
+
+Dear Qudrath,
+
+<br><br>
 
 From the moment you came into my life, everything feels brighter.
 
-Your kindness, your faith, and your beautiful heart inspire me every day.
+Your kindness, your faith and your beautiful heart inspire me every day.
 
-I respect you and care for you deeply.
+I respect you deeply and I am grateful to have you in my life.
 
 Happy Birthday my love ❤️
 
 <br><br>
+
 — Nomaan Khan
+
 </p>
 
-<button onclick="closeLetter()">Close</button>
+</div>
 
 </div>
 
 <script>
 
+/* stars */
+
+for(let i=0;i<120;i++){
+
+let s=document.createElement("div")
+
+s.className="star"
+
+s.style.left=Math.random()*100+"%"
+
+s.style.top=Math.random()*100+"%"
+
+document.body.appendChild(s)
+
+}
+
+/* scene control */
+
+function show(id){
+
+document.querySelectorAll(".scene").forEach(s=>s.classList.remove("active"))
+
+document.getElementById(id).classList.add("active")
+
+}
+
 /* typing */
 
-function type(text,el,speed){
+function type(text,el){
+
 let i=0
-let timer=setInterval(()=>{
+
+let t=setInterval(()=>{
+
 el.innerHTML+=text[i]
+
 i++
-if(i>=text.length) clearInterval(timer)
-},speed)
+
+if(i>=text.length)clearInterval(t)
+
+},60)
+
 }
 
 /* start */
 
-function start(){
+document.getElementById("heart").onclick=function(){
 
-let heart=document.getElementById("heart")
-
-heart.classList.add("big")
+this.classList.add("grow")
 
 setTimeout(()=>{
-heart.style.display="none"
-document.getElementById("splitArea").style.display="flex"
-type("You are the most beautiful part of my life, Qudrath 💫",document.getElementById("typing"),60)
-},1200)
+
+show("s2")
+
+type("You are the most beautiful part of my life, Qudrath 💫",document.getElementById("typing"))
+
+},1000)
+
+setTimeout(()=>show("s3"),6000)
+
+setTimeout(()=>show("s4"),9000)
+
+setTimeout(()=>show("s5"),14000)
 
 setTimeout(()=>{
-document.getElementById("join").style.display="block"
-},5000)
 
-setTimeout(()=>{
-document.getElementById("names").style.display="block"
-},7000)
+show("s6")
 
-setTimeout(()=>{
-document.getElementById("glow").style.display="block"
-},12000)
+fireworks()
 
-setTimeout(()=>{
-document.getElementById("final").style.display="block"
-},15000)
+},17000)
 
-setTimeout(()=>{
-document.getElementById("letter").style.display="block"
-},19000)
+setTimeout(()=>show("s7"),21000)
 
 }
 
-function closeLetter(){
-document.getElementById("letter").style.display="none"
+/* floating hearts */
+
+setInterval(()=>{
+
+let h=document.createElement("div")
+
+h.className="float"
+
+h.innerHTML="❤️"
+
+h.style.left=Math.random()*100+"%"
+
+document.body.appendChild(h)
+
+setTimeout(()=>h.remove(),6000)
+
+},900)
+
+/* fireworks */
+
+function fireworks(){
+
+for(let i=0;i<50;i++){
+
+let f=document.createElement("div")
+
+f.className="fire"
+
+f.style.left=Math.random()*100+"%"
+
+f.style.top=Math.random()*100+"%"
+
+document.body.appendChild(f)
+
+setTimeout(()=>f.remove(),1000)
+
+}
+
 }
 
 </script>
