@@ -13,24 +13,26 @@ background:black;
 color:white;
 overflow:hidden;
 text-align:center;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
 }
 
-.stars{
+.scene{
 position:absolute;
 width:100%;
 height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 }
+
+.hidden{display:none;}
 
 .star{
 position:absolute;
 width:2px;
-height:2px;
-background:white;
+height:2px;ackground:white;
 animation:twinkle 2s infinite alternate;
+cursor:pointer;
 }
 
 @keyframes twinkle{
@@ -38,15 +40,8 @@ from{opacity:0.3}
 to{opacity:1}
 }
 
-.card{
-background:rgba(0,0,0,0.7);
-padding:40px;
-border-radius:20px;
-z-index:2;
-}
-
 button{
-padding:15px 25px;
+padding:14px 28px;
 font-size:18px;
 border:none;
 border-radius:30px;
@@ -55,79 +50,91 @@ color:white;
 cursor:pointer;
 }
 
-#message{
-margin-top:20px;
+#letter{
+max-width:420px;
 font-size:20px;
-display:none;
 white-space:pre-line;
+line-height:1.6;
 }
 
-.heart{
+#heartScene{
+font-size:70px;
+position:relative;
+}
+
+#h1,#h2{
 position:absolute;
-font-size:22px;
-animation:float 6s linear infinite;
+transition:3s;
 }
 
-@keyframes float{
-0%{transform:translateY(100vh)}
-100%{transform:translateY(-10vh)}
-}
-
-#heartbeat{
-font-size:80px;
-display:none;
-animation:beat 1s infinite;
-}
-
-@keyframes beat{
-0%{transform:scale(1)}
-50%{transform:scale(1.3)}
-100%{transform:scale(1)}
-}
+#h1{left:-200px;}
+#h2{right:-200px;}
 
 #final{
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
 font-size:60px;
 color:#ff4d79;
-display:none;
-text-shadow:0 0 10px #ff4d79,
-0 0 20px #ff4d79,
-0 0 40px #ff4d79,
-0 0 80px #ff4d79;
-animation:glow 2s infinite alternate;
+text-shadow:0 0 20px #ff4d79,0 0 40px #ff4d79,0 0 80px #ff4d79;
 }
 
-@keyframes glow{
-from{text-shadow:0 0 10px #ff4d79}
-to{text-shadow:0 0 50px #ff4d79}
+.fire{
+position:absolute;
+width:4px;
+height:4px;
+background:white;
+animation:explode 1.5s linear forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(1)}
+100%{transform:scale(10);opacity:0}
+}
+
+#secret{
+position:absolute;
+bottom:50px;
+font-size:22px;
+color:#ffd1dc;
+display:none;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div class="stars" id="stars"></div>
-
-<div class="card">
-
+<!-- Scene 1 -->
+<div id="scene1" class="scene">
 <h1>🎂 Happy Birthday Qudrath Unnisa 🎂</h1>
-
-<p>Click my heart ❤️</p>
-
-<button onclick="startLove()">❤️ Click My Heart ❤️</button>
-
-<div id="heartbeat">❤️</div>
-
-<div id="message"></div>
-
+<p>Tap my heart ❤️</p>
+<button onclick="startStory()">❤️ Click My Heart ❤️</button>
 </div>
 
-<div id="final">I LOVE YOU QUDRATH ❤️</div>
+<!-- Scene 2 -->
+<div id="scene2" class="scene hidden">
+<div id="letter"></div>
+</div>
+
+<!-- Scene 3 -->
+<div id="scene3" class="scene hidden">
+<h2>Look at the stars closely…</h2>
+</div>
+
+<!-- Scene 4 -->
+<div id="scene4" class="scene hidden">
+<div id="heartScene">
+<span id="h1">❤️</span>
+<span id="h2">❤️</span>
+</div>
+</div>
+
+<!-- Scene 5 -->
+<div id="scene5" class="scene hidden">
+<div id="final">I LOVE YOU QUDRATH ❤️<br>
+<span style="font-size:25px">– Nomaan Khan</span>
+</div>
+
+<div id="secret">✨ You discovered my secret message… You are very special to me ✨</div>
+</div>
 
 <audio id="music">
 <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8b7c6b8e7.mp3">
@@ -135,86 +142,117 @@ to{text-shadow:0 0 50px #ff4d79}
 
 <script>
 
-const text = `Dear Qudrath,
-
-You are one of the most beautiful
-and special people in my life.
-
-Your smile makes my world brighter,
-and your presence makes my days happier.
-
-On your birthday I wish you
-endless happiness and success.
-
-No matter what happens,
-you will always be very special to me.
-
-With love,
-Nomaan Khan ❤️`;
-
-function startLove(){
-
-document.getElementById("music").play();
-document.getElementById("heartbeat").style.display="block";
-
-const msg=document.getElementById("message");
-msg.style.display="block";
-
-let i=0;
-
-function typing(){
-if(i<text.length){
-msg.innerHTML+=text.charAt(i);
-i++;
-setTimeout(typing,40);
-}else{
-setTimeout(showFinal,4000);
-}
-}
-
-typing();
-}
-
-function showFinal(){
-
-document.querySelector(".card").style.display="none";
-document.getElementById("final").style.display="block";
-
-}
-
 function createStars(){
-
-const stars=document.getElementById("stars");
-
 for(let i=0;i<120;i++){
+let s=document.createElement("div");
+s.className="star";
+s.style.left=Math.random()*100+"vw";
+s.style.top=Math.random()*100+"vh";
 
-let star=document.createElement("div");
-star.className="star";
-star.style.top=Math.random()*100+"vh";
-star.style.left=Math.random()*100+"vw";
-
-stars.appendChild(star);
-
+s.onclick=function(){
+document.getElementById("secret").style.display="block";
 }
 
+document.body.appendChild(s);
+}
 }
 
 createStars();
 
-function createHeart(){
+const text=`Dear Qudrath,
 
-const heart=document.createElement("div");
+Among all the stars in the sky,
+you shine the brightest in my life.
 
-heart.className="heart";
-heart.innerHTML="❤️";
-heart.style.left=Math.random()*100+"vw";
+Your smile makes my days happier
+and your presence makes my world beautiful.
 
-document.body.appendChild(heart);
+On your birthday I wish you
+happiness, success and endless beautiful moments.
 
-setTimeout(()=>heart.remove(),6000);
+With love,
+Nomaan Khan ❤️`;
+
+function startStory(){
+
+document.getElementById("music").play();
+
+document.getElementById("scene1").classList.add("hidden");
+document.getElementById("scene2").classList.remove("hidden");
+
+let i=0;
+
+function type(){
+if(i<text.length){
+document.getElementById("letter").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,40);
+}else{
+setTimeout(showConstellation,4000);
+}
 }
 
-setInterval(createHeart,400);
+type();
+}
+
+function showConstellation(){
+
+document.getElementById("scene2").classList.add("hidden");
+document.getElementById("scene3").classList.remove("hidden");
+
+const name="QUDRATH";
+
+for(let i=0;i<name.length;i++){
+
+let star=document.createElement("div");
+star.className="star";
+star.style.left=(200+i*40)+"px";
+star.style.top="40vh";
+star.style.transform="scale(3)";
+document.body.appendChild(star);
+}
+
+setTimeout(joinHearts,4000);
+}
+
+function joinHearts(){
+
+document.getElementById("scene3").classList.add("hidden");
+document.getElementById("scene4").classList.remove("hidden");
+
+setTimeout(()=>{
+document.getElementById("h1").style.left="0px";
+document.getElementById("h2").style.right="0px";
+},100);
+
+setTimeout(showFinal,3500);
+}
+
+function showFinal(){
+
+document.getElementById("scene4").classList.add("hidden");
+document.getElementById("scene5").classList.remove("hidden");
+
+fireworks();
+}
+
+function fireworks(){
+
+for(let i=0;i<40;i++){
+
+let f=document.createElement("div");
+f.className="fire";
+
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*80+"vh";
+
+document.body.appendChild(f);
+
+setTimeout(()=>f.remove(),1500);
+}
+
+setTimeout(fireworks,2000);
+}
 
 </script>
 
